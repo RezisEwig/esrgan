@@ -15,6 +15,9 @@ from model import *
 
 model_filepath = "./pretrained/master.pb"
 
+videofile = ''
+cap = cv2.VideoCapture(videofile)
+
 tf.reset_default_graph()
 
 
@@ -26,12 +29,13 @@ def main():
     cam = cv2.VideoCapture(0)
     model = GAN(model_filepath = model_filepath)
     
-    while True:
-        ret_val, image = cam.read()
+    while (cap.isOpened()):
+        #ret_val, image = cam.read()
+        ret, frame = cap.read()
             
-        if ret_val:
+        if ret:
             
-            image = model.test(img = image)
+            image = model.test(img = frame)
             
             cv2.imshow('my webcam', image/255.0)
             cv2.imwrite("o.bmp", image)
