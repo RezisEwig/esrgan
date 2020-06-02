@@ -16,7 +16,7 @@ from model import *
 model_filepath = "./pretrained/master.pb"
 
 videofile = ''
-cap = cv2.VideoCapture(videofile)
+
 
 tf.reset_default_graph()
 
@@ -28,6 +28,7 @@ def main():
     
     cam = cv2.VideoCapture(0)
     model = GAN(model_filepath = model_filepath)
+    cap = cv2.VideoCapture(videofile)
     
     while (cap.isOpened()):
         #ret_val, image = cam.read()
@@ -43,7 +44,7 @@ def main():
         if cv2.waitKey(1) == ord('q'):
             break
             
-            
+    cap.release()
     #cv2.destroyAllWindows()
 
 
